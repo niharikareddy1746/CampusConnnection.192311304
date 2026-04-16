@@ -1,0 +1,89 @@
+import java.util.*;
+
+class User {
+    String username;
+    String password;
+    int attempts = 0;
+    boolean isLocked = false;
+
+    User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+}
+
+public class SecuritySystem {
+
+    static HashMap<String, User> users = new HashMap<>();
+
+    // Register
+    static void register(Scanner sc) {
+        System.out.print("Enter username: ");
+        String uname = sc.next();
+
+        if (users.containsKey(uname)) {
+            System.out.println("User already exists!");
+            return;
+        }
+
+        System.out.print("Enter password: ");
+        String pass = sc.next();
+
+        users.put(uname, new User(uname, pass));
+        System.out.println("Registration successful!");
+    }
+
+    // Login
+    static void login(Scanner sc) {
+        System.out.print("Enter username: ");
+        String uname = sc.next();
+
+        if (!users.containsKey(uname)) {
+            System.out.println("User not found!");
+            return;
+        }
+
+        User u = users.get(uname);
+
+        if (u.isLocked) {
+            System.out.println("Account is locked!");
+            return;
+        }
+
+        System.out.print("Enter password: ");
+        String pass = sc.next();
+
+        if (u.password.equals(pass)) {
+            System.out.println("Login successful!");
+            u.attempts = 0;
+        } else {
+            u.attempts++;
+            System.out.println("Wrong password!");
+
+            if (u.attempts >= 3) {
+                u.isLocked = true;
+                System.out.println("Account locked due to 3 failed attempts!");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1.Register 2.Login 3.Exit");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    register(sc);
+                    break;
+                case 2:
+                    login(sc);
+                    break;
+                case 3:
+                    System.exit(0);
+            }
+        }
+    }
+}
