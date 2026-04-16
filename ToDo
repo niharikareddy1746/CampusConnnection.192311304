@@ -1,0 +1,73 @@
+import java.util.*;
+
+public class TodoApp {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
+
+        while (true) {
+            System.out.println("\n1. Add  2. View  3. Remove  4. Exit");
+            System.out.print("Choice: ");
+
+            if (!sc.hasNextInt()) {
+                System.out.println("Please enter a number between 1 and 4.");
+                sc.nextLine();
+                continue;
+            }
+
+            int ch = sc.nextInt();
+            sc.nextLine();
+
+            switch (ch) {
+                case 1:
+                    System.out.print("Task: ");
+                    String task = sc.nextLine().trim();
+                    if (!task.isEmpty()) {
+                        tasks.add(task);
+                        System.out.println("Task added.");
+                    } else {
+                        System.out.println("Task cannot be empty.");
+                    }
+                    break;
+
+                case 2:
+                    if (tasks.isEmpty()) {
+                        System.out.println("No tasks yet.");
+                    } else {
+                        for (int i = 0; i < tasks.size(); i++)
+                            System.out.println((i + 1) + ": " + tasks.get(i)); // 1-based
+                    }
+                    break;
+
+                case 3:
+                    if (tasks.isEmpty()) {
+                        System.out.println("No tasks to remove.");
+                        break;
+                    }
+                    System.out.print("Task number to remove (1–" + tasks.size() + "): ");
+                    if (!sc.hasNextInt()) {
+                        System.out.println("Invalid input.");
+                        sc.nextLine();
+                        break;
+                    }
+                    int idx = sc.nextInt() - 1; // convert 1-based input to 0-based index
+                    sc.nextLine();
+                    if (idx >= 0 && idx < tasks.size()) {
+                        System.out.println("Removed: " + tasks.get(idx));
+                        tasks.remove(idx);
+                    } else {
+                        System.out.println("Invalid task number.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Goodbye!");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Enter 1–4.");
+            }
+        }
+    }
+}
