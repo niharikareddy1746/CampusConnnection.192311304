@@ -1,0 +1,53 @@
+import java.io.*;
+import java.util.*;
+
+public class LibraryManagement {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n1.Add Book");
+            System.out.println("2.Issue Book");
+            System.out.println("3.Update Book");
+            System.out.println("4.Return Book");
+            System.out.println("5.Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            FileWriter fw = new FileWriter("books.txt", true);
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter book name: ");
+                    String book = sc.nextLine();
+                    fw.write("Book Added: " + book + "\n");
+                    fw.close();
+                    break;
+
+                case 2:
+                    System.out.print("Enter issued book name: ");
+                    String issue = sc.nextLine();
+                    fw.write("Book Issued: " + issue + "\n");
+                    fw.close();
+                    break;
+
+                case 3:
+                    System.out.print("Enter updated book name: ");
+                    String update = sc.nextLine();
+                    fw.write("Book Updated: " + update + "\n");
+                    fw.close();
+                    break;
+
+                case 4:
+                    System.out.print("Enter returned book name: ");
+                    String ret = sc.nextLine();
+                    fw.write("Book Returned: " + ret + "\n");
+                    fw.close();
+                    break;
+            }
+
+        } while (choice != 5);
+    }
+}
