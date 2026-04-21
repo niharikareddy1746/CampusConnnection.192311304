@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+class RailwayReservationSystem {
+    static int totalSeats = 10;
+    static int bookedSeats = 0;
+
+    public static void bookTicket() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of tickets to book: ");
+        int tickets = sc.nextInt();
+
+        if (tickets <= (totalSeats - bookedSeats)) {
+            bookedSeats += tickets;
+            System.out.println("Ticket booked successfully!");
+            System.out.println("Booked Seats: " + bookedSeats);
+        } else {
+            System.out.println("Sorry! Not enough seats available.");
+        }
+    }
+
+    public static void cancelTicket() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of tickets to cancel: ");
+        int tickets = sc.nextInt();
+
+        if (tickets <= bookedSeats) {
+            bookedSeats -= tickets;
+            System.out.println("Ticket cancelled successfully!");
+            System.out.println("Booked Seats: " + bookedSeats);
+        } else {
+            System.out.println("Invalid cancellation! No such booked tickets.");
+        }
+    }
+
+    public static void viewSeats() {
+        int availableSeats = totalSeats - bookedSeats;
+
+        System.out.println("\n----- Seat Status -----");
+        System.out.println("Total Seats      : " + totalSeats);
+        System.out.println("Booked Seats     : " + bookedSeats);
+        System.out.println("Available Seats  : " + availableSeats);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n===== Railway Reservation System =====");
+            System.out.println("1. Book Ticket");
+            System.out.println("2. Cancel Ticket");
+            System.out.println("3. View Seats");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    bookTicket();
+                    break;
+
+                case 2:
+                    cancelTicket();
+                    break;
+
+                case 3:
+                    viewSeats();
+                    break;
+
+                case 4:
+                    System.out.println("Thank you for using Railway Reservation System!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+
+        } while (choice != 4);
+    }
+}
